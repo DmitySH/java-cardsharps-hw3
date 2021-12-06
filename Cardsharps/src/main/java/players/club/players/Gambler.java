@@ -1,21 +1,35 @@
 package players.club.players;
 
 import players.club.interfaces.Deck;
+import players.club.interfaces.Player;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public final class Gambler implements Runnable {
+public class Gambler implements Player {
     private static final int MAX_SLEEP_TIME = 200;
     private static final int MIN_SLEEP_TIME = 100;
 
-    private final Deck deck;
-    private int balance;
-    private String name;
+    protected final Deck deck;
+    protected int balance;
+    protected String name;
+
+    protected static final List<Gambler> fairPlayers;
+
+    static {
+        fairPlayers = new ArrayList<>();
+    }
+
+
 
     public Gambler(Deck deck) {
         this.deck = deck;
         balance = 0;
         name = "";
+        if (!(this instanceof Cardsharp)){
+            fairPlayers.add(this);
+        }
     }
 
     public Gambler(Deck deck, String name) {
@@ -23,36 +37,47 @@ public final class Gambler implements Runnable {
         this.name = name;
     }
 
-    public synchronized void takeCards() {
-        Thread current = Thread.currentThread();
-        while (!current.isInterrupted()) {
-            try {
-                int added = deck.getNextCard();
-                System.out.println(current.getName() + " got " + added);
-                balance += added;
-                Thread.sleep(ThreadLocalRandom.current().nextInt(MIN_SLEEP_TIME,
-                        MAX_SLEEP_TIME + 1));
-            } catch (InterruptedException ex) {
-                System.out.printf("%s was interrupted!%n", current.getName());
-                break;
-            }
-        }
-    }
-
     public int getBalance() {
         return balance;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void run() {
-        takeCards();
+        makeMove();
     }
 
     @Override
     public String toString() {
         return "Gambler " + getName() + " has " + getBalance();
+    }
+
+    @Override
+    public void makeMove() {
+        Thread current = Thread.currentThread();
+        while (!current.isInterrupted()) {
+            try {
+                takeCard(current);
+            } catch (InterruptedException ex) {
+                break;
+            }
+        }
+    }
+
+    protected void takeCard(Thread thread) throws InterruptedException {
+        try {
+            int added = deck.getNextCard();
+            System.out.println(thread.getName() + " got " + added);
+            balance += added;
+            Thread.sleep(ThreadLocalRandom.current().nextInt(MIN_SLEEP_TIME,
+                    MAX_SLEEP_TIME + 1));
+        } catch (InterruptedException ex) {
+            System.out.printf("%s was interrupted!%n", thread.getName());
+            throw ex;
+        }
     }
 }

@@ -9,7 +9,7 @@ public final class BlackjackDeck implements Deck {
     private static final int MIN_CARD_VALUE = 1;
 
     @Override
-    public int getNextCard() {
+    public synchronized int getNextCard() {
         return ThreadLocalRandom.current().nextInt(MIN_CARD_VALUE, MAX_CARD_VALUE + 1);
     }
 }
