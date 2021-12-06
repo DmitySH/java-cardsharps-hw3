@@ -41,7 +41,7 @@
                     <archive>
                         <manifest>
                             <mainClass>
-                                players.club.GamblingTable
+                                players.club.blackjack.BlackjackTable
                             </mainClass>
                         </manifest>
                     </archive>
