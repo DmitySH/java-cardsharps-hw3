@@ -41,7 +41,7 @@
                     <archive>
                         <manifest>
                             <mainClass>
-                                players.club.CardGame
+                                players.club.GamblingTable
                             </mainClass>
                         </manifest>
                     </archive>
@@ -49,5 +49,6 @@
             </plugin>
         </plugins>
     </build>
+
 
 </project>
