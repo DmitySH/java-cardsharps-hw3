@@ -17,6 +17,10 @@ public class Gambler implements Player {
 
     protected static final List<Gambler> fairPlayers;
 
+    //todo: remove
+    public int got = 0;
+    public int lost = 0;
+
     static {
         fairPlayers = new ArrayList<>();
     }
@@ -73,6 +77,7 @@ public class Gambler implements Player {
             int added = deck.getNextCard();
             System.out.println(thread.getName() + " got " + added);
             balance += added;
+            got += added;
             Thread.sleep(ThreadLocalRandom.current().nextInt(MIN_SLEEP_TIME,
                     MAX_SLEEP_TIME + 1));
         } catch (InterruptedException ex) {

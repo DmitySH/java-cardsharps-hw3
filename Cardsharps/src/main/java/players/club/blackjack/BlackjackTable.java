@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class BlackjackTable implements GamblingTable {
-    private static final int GAME_TIME = 10_000;
+    private static final int GAME_TIME = 5_000; //todo: to 10sec
 
     private final List<Player> players;
     private final Deck deck;
@@ -45,6 +45,9 @@ public final class BlackjackTable implements GamblingTable {
 
         for (Player player : players) {
             System.out.println(player);
+            if (player instanceof Gambler gambler) {
+                System.out.println(gambler.got +"  " + gambler.lost);
+            }
         }
     }
 
