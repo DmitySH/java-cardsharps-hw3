@@ -57,7 +57,7 @@ public class Gambler implements Player {
 
     @Override
     public String toString() {
-        return "Gambler " + getName() + " has " + getBalance();
+        return getName() + " has " + getBalance();
     }
 
     @Override

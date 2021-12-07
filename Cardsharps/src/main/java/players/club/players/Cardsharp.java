@@ -59,17 +59,12 @@ public class Cardsharp extends Gambler {
             victim.lost += stolen;
             this.lost += stolen;
 
-            System.out.println(thread.getName() + " STOLE " + stolen + " from " + victim.getName());
+            System.out.println(thread.getName() + " stole " + stolen + " from " + victim.getName());
             Thread.sleep(ThreadLocalRandom.current().nextInt(MIN_SLEEP_TIME,
                     MAX_SLEEP_TIME + 1));
         } catch (InterruptedException ex) {
             System.out.printf("%s was interrupted!%n", thread.getName());
             throw ex;
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Cardsharper " + getName() + " has " + getBalance();
     }
 }
