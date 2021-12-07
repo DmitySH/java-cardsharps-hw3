@@ -2,7 +2,6 @@ package players.club.players;
 
 import players.club.interfaces.Deck;
 
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Cardsharp extends Gambler {
@@ -55,8 +54,6 @@ public class Cardsharp extends Gambler {
                 }
 
                 this.balance += stolen;
-                victim.lost += stolen;
-                this.lost += stolen;
                 System.out.println(getName() + " stole " + stolen + " from " + victim.getName());
             }
 
