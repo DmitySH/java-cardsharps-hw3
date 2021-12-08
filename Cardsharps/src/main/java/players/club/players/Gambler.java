@@ -46,7 +46,7 @@ public class Gambler implements Player {
 
     @Override
     public void run() {
-        makeMove();
+        playGame();
     }
 
     @Override
@@ -55,7 +55,7 @@ public class Gambler implements Player {
     }
 
     @Override
-    public void makeMove() {
+    public void playGame() {
         Thread current = Thread.currentThread();
         while (!current.isInterrupted()) {
             try {
@@ -68,11 +68,12 @@ public class Gambler implements Player {
 
     protected void takeCard(Thread thread) throws InterruptedException {
         try {
-            int added = deck.getNextCard();
-            System.out.println(getName() + " got " + added);
             synchronized (this) {
+                int added = deck.getNextCard();
                 balance += added;
+                System.out.println(getName() + " got " + added);
             }
+
             Thread.sleep(ThreadLocalRandom.current().nextInt(MIN_SLEEP_TIME,
                     MAX_SLEEP_TIME + 1));
         } catch (InterruptedException ex) {

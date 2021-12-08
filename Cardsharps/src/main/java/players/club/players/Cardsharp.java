@@ -19,7 +19,7 @@ public class Cardsharp extends Gambler {
     }
 
     @Override
-    public void makeMove() {
+    public void playGame() {
         Thread current = Thread.currentThread();
         while (!current.isInterrupted()) {
             try {
