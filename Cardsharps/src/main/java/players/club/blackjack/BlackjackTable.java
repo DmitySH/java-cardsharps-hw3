@@ -12,7 +12,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class BlackjackTable implements GamblingTable {
     private static final int GAME_TIME = 3_000; //todo: to 10sec
@@ -29,9 +32,9 @@ public final class BlackjackTable implements GamblingTable {
         int cardsharpCount;
 
         //todo: remove
-        PrintStream out = new PrintStream(new FileOutputStream(
-                "C:\\Users\\dm1tr\\Desktop\\Python\\files\\java_out.txt"));
-        System.setOut(out);
+//        PrintStream out = new PrintStream(new FileOutputStream(
+//                "C:\\Users\\dm1tr\\Desktop\\Python\\files\\java_out.txt"));
+//        System.setOut(out);
 
         try {
             gamblerCount = inputHelper.parseInt(1, MAX_EACH_TYPE_PLAYERS,
@@ -76,9 +79,19 @@ public final class BlackjackTable implements GamblingTable {
             System.out.println("Game was interrupted.");
         }
 
-        for (Player player : players) {
-            System.out.println(player);
-        }
+        players.sort(Comparator.comparingInt(Player::getBalance));
+
+        int maxBalance = Collections.max(players, Comparator.comparingInt(Player::getBalance)).getBalance();
+
+        players.stream().filter(player -> player.getBalance() < maxBalance).
+                forEach(System.out::println);
+
+        System.out.println("\n\t\t WINNERS");
+
+        players.stream().filter(player -> player.getBalance() == maxBalance).
+                forEach(x -> System.out.println("\t" + x));
+
+        System.out.println();
     }
 
     private void playBlackjack() throws InterruptedException {
@@ -97,5 +110,7 @@ public final class BlackjackTable implements GamblingTable {
         for (Thread thread : threads) {
             thread.join();
         }
+
+        System.out.println();
     }
 }
