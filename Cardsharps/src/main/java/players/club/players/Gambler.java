@@ -66,11 +66,13 @@ public class Gambler implements Player {
         }
     }
 
-    protected synchronized void takeCard(Thread thread) throws InterruptedException {
+    protected void takeCard(Thread thread) throws InterruptedException {
         try {
             int added = deck.getNextCard();
             System.out.println(getName() + " got " + added);
-            balance += added;
+            synchronized (this) {
+                balance += added;
+            }
             Thread.sleep(ThreadLocalRandom.current().nextInt(MIN_SLEEP_TIME,
                     MAX_SLEEP_TIME + 1));
         } catch (InterruptedException ex) {

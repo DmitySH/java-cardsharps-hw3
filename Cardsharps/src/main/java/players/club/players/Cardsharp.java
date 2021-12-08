@@ -40,11 +40,11 @@ public class Cardsharp extends Gambler {
             int randGamblerIndex = ThreadLocalRandom.current().nextInt(0,
                     Gambler.fairPlayers.size());
 
+            int stolen = ThreadLocalRandom.current().nextInt(MIN_STOLEN_SCORE,
+                    MAX_STOLEN_SCORE + 1);
+
             synchronized (fairPlayers.get(randGamblerIndex)) {
                 Gambler victim = fairPlayers.get(randGamblerIndex);
-
-                int stolen = ThreadLocalRandom.current().nextInt(MIN_STOLEN_SCORE,
-                        MAX_STOLEN_SCORE + 1);
 
                 if (victim.balance - stolen < 0) {
                     stolen = victim.balance;
