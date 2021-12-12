@@ -8,16 +8,13 @@ import players.club.players.Cardsharp;
 import players.club.players.Gambler;
 import players.club.utils.InputHelper;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 public final class BlackjackTable implements GamblingTable {
-    private static final int GAME_TIME = 3_000; //todo: to 10sec
+    private static final int GAME_TIME = 10_000;
     private static final int MAX_INPUT_ATTEMPTS = 7;
     private static final int MAX_EACH_TYPE_PLAYERS = 500;
 
