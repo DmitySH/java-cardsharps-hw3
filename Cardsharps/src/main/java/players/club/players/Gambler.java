@@ -25,7 +25,7 @@ public class Gambler implements Player {
         this.deck = deck;
         balance = 0;
         name = "";
-        if (!(this instanceof Cardsharp)){
+        if (!(this instanceof Cardsharp)) {
             fairPlayers.add(this);
         }
     }
@@ -35,25 +35,47 @@ public class Gambler implements Player {
         this.name = name;
     }
 
+    /**
+     * Balance getter.
+     *
+     * @return balance of player.
+     */
+    @Override
     public int getBalance() {
         return balance;
     }
 
+    /**
+     * Name getter.
+     *
+     * @return name of player.
+     */
     @Override
     public String getName() {
         return name;
     }
 
+    /**
+     * Thread run method.
+     */
     @Override
     public void run() {
         playGame();
     }
 
+    /**
+     * Player as string.
+     *
+     * @return string representation of player.
+     */
     @Override
     public String toString() {
         return getName() + " has " + getBalance();
     }
 
+    /**
+     * Provides playing logic of player.
+     */
     @Override
     public void playGame() {
         Thread current = Thread.currentThread();
@@ -66,12 +88,18 @@ public class Gambler implements Player {
         }
     }
 
+    /**
+     * Gives player new card.
+     *
+     * @param thread current thread.
+     * @throws InterruptedException if thread was interrupted.
+     */
     protected void takeCard(Thread thread) throws InterruptedException {
         try {
             synchronized (this) {
                 int added = deck.getNextCard();
                 balance += added;
-                System.out.println(getName() + " got " + added);
+                System.out.println(getName() + " got " + added + " points card");
             }
 
             Thread.sleep(ThreadLocalRandom.current().nextInt(MIN_SLEEP_TIME,

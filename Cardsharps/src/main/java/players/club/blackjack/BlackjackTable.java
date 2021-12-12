@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public final class BlackjackTable implements GamblingTable {
     private static final int GAME_TIME = 3_000; //todo: to 10sec
@@ -27,14 +26,14 @@ public final class BlackjackTable implements GamblingTable {
 
     private static final Input inputHelper;
 
-    public static void main(String[] args) throws FileNotFoundException {
+    /**
+     * Entry point.
+     *
+     * @param args CL args.
+     */
+    public static void main(String[] args) {
         int gamblerCount;
         int cardsharpCount;
-
-        //todo: remove
-//        PrintStream out = new PrintStream(new FileOutputStream(
-//                "C:\\Users\\dm1tr\\Desktop\\Python\\files\\java_out.txt"));
-//        System.setOut(out);
 
         try {
             gamblerCount = inputHelper.parseInt(1, MAX_EACH_TYPE_PLAYERS,
@@ -69,6 +68,9 @@ public final class BlackjackTable implements GamblingTable {
         }
     }
 
+    /**
+     * Logic of game.
+     */
     @Override
     public void playCardGame() {
         System.out.println("Blackjack started");
@@ -83,6 +85,7 @@ public final class BlackjackTable implements GamblingTable {
 
         int maxBalance = Collections.max(players, Comparator.comparingInt(Player::getBalance)).getBalance();
 
+        System.out.println("\tResults of the game:");
         players.stream().filter(player -> player.getBalance() < maxBalance).
                 forEach(System.out::println);
 
@@ -94,6 +97,11 @@ public final class BlackjackTable implements GamblingTable {
         System.out.println();
     }
 
+    /**
+     * BlackJack game logic.
+     *
+     * @throws InterruptedException if game was interrupted.
+     */
     private void playBlackjack() throws InterruptedException {
         List<Thread> threads = new ArrayList<>();
         for (Player player : players) {

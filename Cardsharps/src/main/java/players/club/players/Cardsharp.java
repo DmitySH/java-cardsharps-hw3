@@ -18,6 +18,9 @@ public class Cardsharp extends Gambler {
         super(deck, name);
     }
 
+    /**
+     * Provides playing logic.
+     */
     @Override
     public void playGame() {
         Thread current = Thread.currentThread();
@@ -35,6 +38,12 @@ public class Cardsharp extends Gambler {
         }
     }
 
+    /**
+     * Stoles card from fair players.
+     *
+     * @param thread current thread.
+     * @throws InterruptedException if thread was interrupted.
+     */
     private void stoleCards(Thread thread) throws InterruptedException {
         try {
             int randGamblerIndex = ThreadLocalRandom.current().nextInt(0,
@@ -54,7 +63,7 @@ public class Cardsharp extends Gambler {
                 }
 
                 this.balance += stolen;
-                System.out.println(getName() + " stole " + stolen + " from " + victim.getName());
+                System.out.println(getName() + " stole " + stolen + " point from " + victim.getName());
             }
 
             Thread.sleep(ThreadLocalRandom.current().nextInt(MIN_SLEEP_TIME,
