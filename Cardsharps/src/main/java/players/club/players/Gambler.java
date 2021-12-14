@@ -105,7 +105,7 @@ public class Gambler implements Player {
             Thread.sleep(ThreadLocalRandom.current().nextInt(MIN_SLEEP_TIME,
                     MAX_SLEEP_TIME + 1));
         } catch (InterruptedException ex) {
-            System.out.printf("%s was interrupted!%n", thread.getName());
+            System.out.println(thread.getName() + " was interrupted!");
             throw ex;
         }
     }

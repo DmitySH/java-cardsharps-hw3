@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
-import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,7 +33,7 @@ class InputHelperTest {
 
     @Test
     void parseInt() {
-        String initialString = "text\n123\n-12\n12.3\n4";
+        String initialString = String.join(System.lineSeparator(), "text", "123", "-12", "12.3", "4");
         InputStream in = new ByteArrayInputStream(initialString.getBytes());
 
         ByteArrayOutputStream outBytes = new ByteArrayOutputStream();
@@ -50,7 +49,7 @@ class InputHelperTest {
         assertEquals(value, 4);
 
 
-        initialString = "text\n1text\n-12text\n12.3text\n4text\n";
+        initialString = String.join(System.lineSeparator(), "text", "123", "-12", "12.3", "4text");
         in = new ByteArrayInputStream(initialString.getBytes());
 
         inputHelper.setIn(in);
@@ -62,7 +61,7 @@ class InputHelperTest {
 
     @Test
     void getLine() {
-        String initialString = "text\n123";
+        String initialString = "text" + System.lineSeparator() + "123";
         InputStream in = new ByteArrayInputStream(initialString.getBytes());
         inputHelper.setIn(in);
 

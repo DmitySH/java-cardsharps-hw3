@@ -86,7 +86,7 @@ public final class BlackjackTable implements GamblingTable {
         players.stream().filter(player -> player.getBalance() < maxBalance).
                 forEach(System.out::println);
 
-        System.out.println("\n\t\t WINNERS");
+        System.out.println(System.lineSeparator() + "\t\t WINNERS");
 
         players.stream().filter(player -> player.getBalance() == maxBalance).
                 forEach(x -> System.out.println("\t" + x));
