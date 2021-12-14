@@ -4,7 +4,6 @@ import players.club.interfaces.Input;
 
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.Locale;
 import java.util.Scanner;
 
 public final class InputHelper implements Input {
@@ -61,40 +60,6 @@ public final class InputHelper implements Input {
         int res = Integer.parseInt(input);
         if (!(res >= from && res <= to)) {
             throw new NumberFormatException("Incorrect input!");
-        }
-
-        return res;
-    }
-
-    /**
-     * Gets boolean from input.
-     *
-     * @param prompt       prompt to out.
-     * @param errorMessage error to out.
-     * @param attempts     max number of incorrect input.
-     * @return parsed boolean.
-     */
-    public boolean enterBoolean(String prompt, String errorMessage, int attempts) {
-        out.print(prompt);
-        String input;
-        boolean isCorrect = false;
-        int current_attempt = 0;
-        boolean res = true;
-
-        while (!isCorrect) {
-            if (current_attempt >= attempts) {
-                throw new NumberFormatException("You did not enter yes or no!");
-            }
-            input = in.nextLine();
-            if (input.toLowerCase(Locale.ROOT).equals("yes")) {
-                isCorrect = true;
-            } else if (input.toLowerCase(Locale.ROOT).equals("no")) {
-                isCorrect = true;
-                res = false;
-            } else {
-                out.print(errorMessage);
-            }
-            ++current_attempt;
         }
 
         return res;
