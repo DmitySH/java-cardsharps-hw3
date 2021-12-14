@@ -18,6 +18,24 @@ public final class BlackjackTable implements GamblingTable {
     private static final int MAX_INPUT_ATTEMPTS = 7;
     private static final int MAX_EACH_TYPE_PLAYERS = 500;
 
+    private static final String PLAYERS_TEXT = """
+            ######   #######     #     #     #   #####   ######   #######
+            #     #  #    #     # #     #   #   #     #  #     #  #
+            #     #      #     #   #     # #          #  #     #  #
+            ######      #     #     #     #      #####   ######   ######
+            #          #      #######     #           #  #   #          #
+            #          #      #     #     #     #     #  #    #   #     #
+            #          #      #     #     #      #####   #     #   #####
+            """;
+    private static final String RULES_TEXT = """
+            Welcome to the P7AY3R5 club buddy!
+            In this application you can see how dirty unfair
+            (C)sharpers play blackjack with fair (Java) players
+            (Unfortunately Python enjoyers are behind the comments in tests).
+            All you need is to enter number of players (fair and unfair) and
+            then you will see gaming process. g00d l9ck.
+            """;
+
     private final List<Player> players;
     private final Deck deck;
 
@@ -32,12 +50,14 @@ public final class BlackjackTable implements GamblingTable {
         int gamblerCount;
         int cardsharpCount;
 
+        printRules();
+
         try {
             gamblerCount = inputHelper.parseInt(1, MAX_EACH_TYPE_PLAYERS,
-                    "Enter number of fair players: ",
+                    "Enter number of fair players (from 1 to 500): ",
                     "Incorrect number! Try again: ", MAX_INPUT_ATTEMPTS);
             cardsharpCount = inputHelper.parseInt(0, MAX_EACH_TYPE_PLAYERS,
-                    "Enter number of cardsharps: ",
+                    "Enter number of cardsharps (from 0 to 500): ",
                     "Incorrect number! Try again: ", MAX_INPUT_ATTEMPTS);
         } catch (NumberFormatException ex) {
             System.out.println(ex.getMessage() + " Restart application!");
@@ -50,6 +70,11 @@ public final class BlackjackTable implements GamblingTable {
 
     static {
         inputHelper = InputHelper.getInstance();
+    }
+
+    private static void printRules() {
+        System.out.println(PLAYERS_TEXT);
+        System.out.println(RULES_TEXT);
     }
 
     public BlackjackTable(int gamblerCount, int cardsharpCount) {

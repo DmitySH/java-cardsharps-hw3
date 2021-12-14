@@ -2,10 +2,8 @@ package players.club.blackjack;
 
 import org.junit.jupiter.api.Test;
 import players.club.interfaces.GamblingTable;
-import players.club.interfaces.Input;
 
 import java.io.*;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
